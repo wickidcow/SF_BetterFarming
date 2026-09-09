@@ -10,73 +10,78 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 
+import java.util.EnumSet;
+import java.util.Set;
+import java.util.concurrent.ThreadLocalRandom;
+
 import static me.hal989.betterfarming.BetterFarming.*;
 
 public class BlockBreakHandler implements Listener {
+
+    private static final Set<Material> LEAVES = EnumSet.of(
+        Material.OAK_LEAVES,
+        Material.DARK_OAK_LEAVES,
+        Material.SPRUCE_LEAVES,
+        Material.BIRCH_LEAVES,
+        Material.ACACIA_LEAVES,
+        Material.JUNGLE_LEAVES,
+        Material.MANGROVE_LEAVES,
+        Material.CHERRY_LEAVES,
+        Material.AZALEA_LEAVES,
+        Material.FLOWERING_AZALEA_LEAVES,
+        Material.PALE_OAK_LEAVES
+    );
+
     public BlockBreakHandler(Plugin plugin) {
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
     }
 
-    @EventHandler
-    public void onBreak(BlockBreakEvent e) {
-        Material blockName = e.getBlock().getType();
-        Block block = e.getBlock();
-        Player p = e.getPlayer();
-        SlimefunItem hand = SlimefunItem.getByItem(p.getInventory().getItemInMainHand());
+    @EventHandler(ignoreCancelled = true)
+    public void onBreak(BlockBreakEvent event) {
+        Block block = event.getBlock();
+        Material material = block.getType();
+        Player player = event.getPlayer();
+        SlimefunItem hand = SlimefunItem.getByItem(player.getInventory().getItemInMainHand());
         if (hand == null) {
             return;
         }
-        if (blockName.equals(Material.OAK_LEAVES) || blockName.equals(Material.DARK_OAK_LEAVES) || blockName.equals(Material.SPRUCE_LEAVES) || blockName.equals(Material.BIRCH_LEAVES) || blockName.equals(Material.ACACIA_LEAVES) || blockName.equals(Material.JUNGLE_LEAVES)) {
-            if (hand.getId().equals(appleHoe.getItemId())) {
-                if (Math.random() < 0.3) {
-                    block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(Material.APPLE));
-                }
+
+        ThreadLocalRandom random = ThreadLocalRandom.current();
+        String id = hand.getId();
+
+        if (LEAVES.contains(material)) {
+            if (id.equals(appleHoe.getItemId()) && random.nextDouble() < 0.30) {
+                drop(block, new ItemStack(Material.APPLE));
+            } else if (id.equals(goldenAppleHoe.getItemId()) && random.nextDouble() < 0.10) {
+                drop(block, new ItemStack(Material.GOLDEN_APPLE));
+            } else if (id.equals(enchGoldenAppleHoe.getItemId()) && random.nextDouble() < 0.05) {
+                drop(block, new ItemStack(Material.ENCHANTED_GOLDEN_APPLE));
             }
-            if (hand.getId().equals(goldenAppleHoe.getItemId())) {
-                if (Math.random() < 0.1) {
-                    block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(Material.GOLDEN_APPLE));
-                }
-            }
-            if (hand.getId().equals(enchGoldenAppleHoe.getItemId())) {
-                if (Math.random() < 0.05) {
-                    block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(Material.ENCHANTED_GOLDEN_APPLE));
-                }
-            }
-        }
-        if (blockName.equals(Material.GRASS) || blockName.equals(Material.TALL_GRASS)) {
-            if (hand.getId().equals(kokiriSword.getItemId())) {
-                if (Math.random() > 0.5) {
-                    if (Math.random() < 0.9) {
-                        p.getInventory().addItem(new ItemStack(greenRupee));
-                    } else {
-                        p.getInventory().addItem(new ItemStack(blueRupee));
-                    }
-                }
-            }
-            if (hand.getId().equals(magicalSword.getItemId())) {
-                if (Math.random() > 0.3) {
-                    if (Math.random() < 0.9) {
-                        block.getWorld().dropItemNaturally(block.getLocation(), blueRupee);
-                    } else {
-                        block.getWorld().dropItemNaturally(block.getLocation(), redRupee);
-                    }
-                }
-            }
-            if (hand.getId().equals(masterSword.getItemId())) {
-                if ((Math.random() > 0.3) || p.getHealth() > 19) {
-                    if (Math.random() < 0.9) {
-                        block.getWorld().dropItemNaturally(block.getLocation(), redRupee);
-                    } else {
-                        block.getWorld().dropItemNaturally(block.getLocation(), purpleRupee);
-                    }
-                } else {
-                    if (Math.random() < 0.5) {
-                        block.getWorld().dropItemNaturally(block.getLocation(), redRupee);
-                    }
-                }
-            }
+            return;
         }
 
+        if (material != Material.SHORT_GRASS && material != Material.TALL_GRASS) {
+            return;
+        }
+
+        if (id.equals(kokiriSword.getItemId()) && random.nextDouble() > 0.50) {
+            player.getInventory().addItem((random.nextDouble() < 0.90 ? greenRupee : blueRupee).clone());
+        } else if (id.equals(magicalSword.getItemId()) && random.nextDouble() > 0.30) {
+            drop(block, (random.nextDouble() < 0.90 ? blueRupee : redRupee).clone());
+        } else if (id.equals(masterSword.getItemId())) {
+            double maxHealth = player.getAttribute(org.bukkit.attribute.Attribute.MAX_HEALTH) == null
+                ? 20.0
+                : player.getAttribute(org.bukkit.attribute.Attribute.MAX_HEALTH).getValue();
+            boolean fullHealth = player.getHealth() >= maxHealth - 0.001;
+            if (random.nextDouble() > 0.30 || fullHealth) {
+                drop(block, (random.nextDouble() < 0.90 ? redRupee : purpleRupee).clone());
+            } else if (random.nextDouble() < 0.50) {
+                drop(block, redRupee.clone());
+            }
+        }
     }
 
+    private static void drop(Block block, ItemStack stack) {
+        block.getWorld().dropItemNaturally(block.getLocation(), stack);
+    }
 }

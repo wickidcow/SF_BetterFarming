@@ -1,12 +1,23 @@
-# betterfarming
-Addon Jam 2021 submission
+# SF_BetterFarming
 
-Adds a set of hoes and legend of zelda swords
+Maintained BetterFarming fork for modern Slimefun servers.
 
-# A slimefun4 Addon for the Addon Jam 2020 Contest
+BetterFarming adds special hoes, Rupees, breakable pots and sword-based grass rewards. This fork restores a fully English-facing build from the recovered `d8b712f` source lineage and updates it for current Minecraft and Slimefun APIs.
 
-This addon will spice up combat by adding a variety of end-themed weapons, and other combat tools!
+## Compatibility
 
-(Made by HAL989)
+Primary targets are **Slimefun Legacy** and **Slimefun United**. Additional compatibility is tested against SlimefunGuguProject/Slimefun4 and original Slimefun4-compatible APIs.
 
-Currently features 10+ items
+Supported server families: Paper, Purpur, Folia and Leaf. Minecraft target: **1.21.11+**. Builds use Java 25 and target Java 21 bytecode.
+
+The gameplay is event-driven and does not create its own repeating scheduler. Modern leaf types including mangrove, cherry, azalea and pale oak leaves are recognized, and current `SHORT_GRASS` naming is used.
+
+## Dependency policy
+
+This maintained fork has no direct CS-CoreLib or GuizhanLib dependency and does not use GuizhanLib APIs. Cross-fork support is kept on the shared Slimefun addon API wherever possible.
+
+## English-only maintenance
+
+The inherited translation fork contained Chinese-facing category, item, lore and research text. The maintained `wickidcow` line replaces those strings with English and CI rejects new CJK-facing text in source/resources.
+
+Original project by HAL989 and contributors. Modern compatibility maintenance is provided by `wickidcow`.

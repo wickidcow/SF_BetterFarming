@@ -1,90 +1,42 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>me.hal989</groupId>
-  <artifactId>BetterFarming</artifactId>
-  <version>1</version>
-  
-  <properties>
-  	<maven.compiler.source>1.8</maven.compiler.source>
-  	<maven.compiler.target>1.8</maven.compiler.target>
-  	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>io.github.wickidcow</groupId>
+    <artifactId>SF_BetterFarming</artifactId>
+    <version>1.0.0</version>
 
-	<repositories>
-		<repository>
-			<id>jitpack.io</id>
-			<url>https://jitpack.io</url>
-		</repository>
+    <properties>
+        <maven.compiler.release>21</maven.compiler.release>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <paper.version>[26.2.build,)</paper.version>
+        <slimefun.groupId>com.github.Slimefun</slimefun.groupId>
+        <slimefun.artifactId>Slimefun4</slimefun.artifactId>
+        <slimefun.version>RC-37</slimefun.version>
+    </properties>
 
-  	<repository>
-  		<id>paper-repo</id>
-  		<url>https://repo.destroystokyo.com/repository/maven-public/</url>
-  	</repository>
-  	
-  	<repository>
-  		<id>spigot-repo</id>
-  		<url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
-  	</repository>
+    <repositories>
+        <repository><id>paper-repo</id><url>https://repo.papermc.io/repository/maven-public/</url></repository>
+        <repository><id>jitpack.io</id><url>https://jitpack.io</url></repository>
+    </repositories>
 
-  </repositories>
-  
-  <build>
-  	<finalName>${project.name} v${project.version}</finalName>
-  	<defaultGoal>clean package</defaultGoal>
-  	<sourceDirectory>${basedir}/src/main/java</sourceDirectory>
-  	
-  	<resources>
-  		<resource>
-  			<directory>${basedir}/src/main/resources</directory>
-  			<filtering>true</filtering>
-  			<includes>
-  				<include>*</include>
-  			</includes>
-  		</resource>
-  	</resources>
-  </build>
-  
-  <dependencies>
-	  <dependency>
-		  <groupId>org.spigotmc</groupId>
-		  <artifactId>spigot-api</artifactId>
-		  <version>1.18.2-R0.1-SNAPSHOT</version>
-		  <scope>provided</scope>
-	  </dependency>
-  	
-  	<dependency>
-  		<groupId>com.github.TheBusyBiscuit</groupId>
-  		<artifactId>CS-CoreLib</artifactId>
-  		<version>8081bb4fe4</version>
-  		<scope>provided</scope>
-  		<exclusions>
-  			<exclusion>
-  				<groupId>io.github.thebusybiscuit</groupId>
-  				<artifactId>cscorelib2</artifactId>
-  			</exclusion>
-  			<exclusion>
-  				<groupId>org.bstats</groupId>
-  				<artifactId>bstats-bukkit</artifactId>
-  			</exclusion>
-  		</exclusions>
-  	</dependency>
+    <dependencies>
+        <dependency><groupId>io.papermc.paper</groupId><artifactId>paper-api</artifactId><version>${paper.version}</version><scope>provided</scope></dependency>
+        <dependency>
+            <groupId>${slimefun.groupId}</groupId><artifactId>${slimefun.artifactId}</artifactId><version>${slimefun.version}</version><scope>provided</scope>
+            <exclusions>
+                <exclusion><groupId>io.papermc.paper</groupId><artifactId>paper-api</artifactId></exclusion>
+                <exclusion><groupId>org.spigotmc</groupId><artifactId>spigot-api</artifactId></exclusion>
+            </exclusions>
+        </dependency>
+    </dependencies>
 
-	  <dependency>
-		  <groupId>com.github.SlimefunGuguProject</groupId>
-		  <artifactId>Slimefun4</artifactId>
-		  <version>2024.3</version>
-		  <scope>provided</scope>
-  		<exclusions>
-  			<exclusion>
-  				<groupId>io.github.thebusybiscuit</groupId>
-  				<artifactId>cscorelib2</artifactId>
-  			</exclusion>
-  			<exclusion>
-  				<groupId>org.bstats</groupId>
-  				<artifactId>bstats-bukkit</artifactId>
-  			</exclusion>
-  		</exclusions>
-	  </dependency>
-  </dependencies>
+    <build>
+        <finalName>SF_BetterFarming${project.version}</finalName>
+        <defaultGoal>clean verify</defaultGoal>
+        <resources><resource><directory>src/main/resources</directory><filtering>true</filtering></resource></resources>
+        <plugins>
+            <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-compiler-plugin</artifactId><version>3.15.0</version></plugin>
+        </plugins>
+    </build>
 </project>

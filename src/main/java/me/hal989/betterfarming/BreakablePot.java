@@ -9,6 +9,8 @@ import io.github.thebusybiscuit.slimefun4.core.handlers.ItemUseHandler;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 import static me.hal989.betterfarming.BetterFarming.breakablePot;
 import static me.hal989.betterfarming.BetterFarming.greenRupee;
 
@@ -20,20 +22,17 @@ public class BreakablePot extends SlimefunItem {
 
     @Override
     public void preRegister() {
-
-        ItemUseHandler itemUseHandler = this::onItemRightClick;
-        addItemHandler(itemUseHandler);
+        addItemHandler((ItemUseHandler) this::onItemRightClick);
     }
 
     private void onItemRightClick(PlayerRightClickEvent event) {
-        Player p = event.getPlayer();
-        p.getInventory().removeItem(breakablePot);
-        p.getInventory().addItem(greenRupee);
-        p.getInventory().addItem(greenRupee);
-        p.getInventory().addItem(greenRupee);
-        p.getInventory().addItem(greenRupee);
-        if (Math.random() > 0.6) {
-            p.getInventory().addItem(greenRupee);
+        event.cancel();
+        Player player = event.getPlayer();
+        player.getInventory().removeItem(breakablePot.clone());
+
+        int reward = ThreadLocalRandom.current().nextDouble() > 0.6 ? 5 : 4;
+        for (int i = 0; i < reward; i++) {
+            player.getInventory().addItem(greenRupee.clone());
         }
     }
 }

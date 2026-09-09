@@ -1,10 +1,9 @@
 name: BetterFarming
 version: ${project.version}
-author: HAL989
-description: Over 30 new hoes!
-website: https://github.com/Gavin296/better-farming
-
+authors: [HAL989, wickidcow]
+description: Farming tools, Rupees, breakable pots and progression items for Minecraft 1.21.11+ Slimefun servers.
+website: https://github.com/wickidcow/SF_BetterFarming
 main: me.hal989.betterfarming.BetterFarming
 depend: [Slimefun]
-
-api-version: 1.14
+api-version: '1.21'
+folia-supported: true
