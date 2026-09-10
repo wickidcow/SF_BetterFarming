@@ -14,10 +14,10 @@ The gameplay is event-driven and does not create its own repeating scheduler. Mo
 
 ## Dependency policy
 
-This maintained fork has no direct CS-CoreLib or GuizhanLib dependency and does not use GuizhanLib APIs. Cross-fork support is kept on the shared Slimefun addon API wherever possible.
+This maintained fork has no direct CS-CoreLib dependency and avoids external Slimefun utility-library dependencies. Cross-fork support stays on the shared Slimefun addon API wherever possible.
 
 ## English-only maintenance
 
-The inherited translation fork contained Chinese-facing category, item, lore and research text. The maintained `wickidcow` line replaces those strings with English and CI rejects new CJK-facing text in source/resources.
+The inherited translation fork contained non-English category, item, lore and research text. The maintained `wickidcow` line replaces those strings with English and CI rejects new CJK-facing text in source/resources.
 
 Original project by HAL989 and contributors. Modern compatibility maintenance is provided by `wickidcow`.
