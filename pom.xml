@@ -4,9 +4,9 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.github.wickidcow</groupId>
     <artifactId>SF_BetterFarming</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <name>SF_BetterFarming</name>
-    <description>Maintained BetterFarming addon for Slimefun Legacy on modern Paper servers.</description>
+    <description>Maintained BetterFarming addon with modern vegetation and copper-tier weapons for Slimefun Legacy.</description>
     <url>https://github.com/wickidcow/SF_BetterFarming</url>
     <licenses>
         <license>
