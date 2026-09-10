@@ -29,6 +29,8 @@ public class BetterFarming extends JavaPlugin implements SlimefunAddon {
     public static SlimefunItemStack silverRupee;
     public static SlimefunItemStack goldRupee;
     public static SlimefunItemStack kokiriSword;
+    public static SlimefunItemStack copperRupeeSword;
+    public static SlimefunItemStack copperRupeeSpear;
     public static SlimefunItemStack magicalSword;
     public static SlimefunItemStack masterSword;
 
@@ -76,6 +78,16 @@ public class BetterFarming extends JavaPlugin implements SlimefunAddon {
             "KOKIRISWORD", Material.WOODEN_SWORD, "&aKokiri Sword", "",
             "&aBreaking grass with this sword may", "&adrop Rupees."
         );
+        copperRupeeSword = new SlimefunItemStack(
+            "COPPER_RUPEE_SWORD", requireMaterial("COPPER_SWORD"), "&6Copper Rupee Sword", "",
+            "&7A modern copper-tier treasure blade.",
+            "&aBreaking grass, bushes and ground plants", "&amay uncover Green or Blue Rupees."
+        );
+        copperRupeeSpear = new SlimefunItemStack(
+            "COPPER_RUPEE_SPEAR", requireMaterial("COPPER_SPEAR"), "&6Copper Rupee Spear", "",
+            "&7A Mounts of Mayhem-era treasure weapon.",
+            "&aBreaking grass, bushes and ground plants", "&amay uncover Blue or Red Rupees."
+        );
         magicalSword = new SlimefunItemStack(
             "MAGICALSWORD", Material.IRON_SWORD, "&fMagical Sword", "",
             "&aBreaking grass with this sword may", "&adrop better Rupees."
@@ -106,6 +118,8 @@ public class BetterFarming extends JavaPlugin implements SlimefunAddon {
         ItemStack[] silverRupeeRecipe = four(orangeRupee);
         ItemStack[] goldRupeeRecipe = four(silverRupee);
         ItemStack[] kokiriSwordRecipe = surround(greenRupee, new ItemStack(Material.WOODEN_SWORD));
+        ItemStack[] copperRupeeSwordRecipe = surround(blueRupee, new ItemStack(requireMaterial("COPPER_SWORD")));
+        ItemStack[] copperRupeeSpearRecipe = surround(redRupee, new ItemStack(requireMaterial("COPPER_SPEAR")));
         ItemStack[] magicalSwordRecipe = surround(redRupee, kokiriSword);
         ItemStack[] masterSwordRecipe = surround(silverRupee, magicalSword);
         ItemStack[] appleHoeRecipe = surround(new ItemStack(Material.APPLE), new ItemStack(Material.WOODEN_HOE));
@@ -120,6 +134,8 @@ public class BetterFarming extends JavaPlugin implements SlimefunAddon {
         register(new NotPlaceableItem(betterFarming, silverRupee, RecipeType.ENHANCED_CRAFTING_TABLE, silverRupeeRecipe));
         register(new NotPlaceableItem(betterFarming, goldRupee, RecipeType.ENHANCED_CRAFTING_TABLE, goldRupeeRecipe));
         register(new NotPlaceableItem(betterFarming, kokiriSword, RecipeType.ENHANCED_CRAFTING_TABLE, kokiriSwordRecipe));
+        register(new NotPlaceableItem(betterFarming, copperRupeeSword, RecipeType.ENHANCED_CRAFTING_TABLE, copperRupeeSwordRecipe));
+        register(new NotPlaceableItem(betterFarming, copperRupeeSpear, RecipeType.ENHANCED_CRAFTING_TABLE, copperRupeeSpearRecipe));
         register(new NotPlaceableItem(betterFarming, magicalSword, RecipeType.ENHANCED_CRAFTING_TABLE, magicalSwordRecipe));
         register(new NotPlaceableItem(betterFarming, masterSword, RecipeType.ENHANCED_CRAFTING_TABLE, masterSwordRecipe));
         register(new NotPlaceableItem(betterFarming, appleHoe, RecipeType.ENHANCED_CRAFTING_TABLE, appleHoeRecipe));
@@ -129,6 +145,8 @@ public class BetterFarming extends JavaPlugin implements SlimefunAddon {
 
         new Research(new NamespacedKey(this, "loz_swords"), 425689, "Legendary Swords", 22)
             .addItems(kokiriSword, magicalSword, masterSword).register();
+        new Research(new NamespacedKey(this, "copper_rupee_weapons"), 425690, "Copper Rupee Weapons", 12)
+            .addItems(copperRupeeSword, copperRupeeSpear).register();
         new Research(new NamespacedKey(this, "breakable_pot"), 425691, "Breakable Pot", 5)
             .addItems(breakablePot).register();
         new Research(new NamespacedKey(this, "rupees"), 425692, "Rupee Economy", 20)
@@ -153,6 +171,14 @@ public class BetterFarming extends JavaPlugin implements SlimefunAddon {
             ingredient, center, ingredient,
             ingredient, ingredient, ingredient
         };
+    }
+
+    private static Material requireMaterial(String name) {
+        Material material = Material.getMaterial(name);
+        if (material == null) {
+            throw new IllegalStateException("SF_BetterFarming requires Minecraft 1.21.11+ material: " + name);
+        }
+        return material;
     }
 
     private static ItemStack namedItem(Material material, String name) {
