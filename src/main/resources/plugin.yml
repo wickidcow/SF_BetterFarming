@@ -1,7 +1,7 @@
 name: BetterFarming
 version: ${project.version}
 authors: [HAL989, wickidcow]
-description: Farming tools, Rupees, breakable pots and progression items for Minecraft 1.21.11+ Slimefun servers.
+description: Maintained BetterFarming addon for Slimefun Legacy on Minecraft 1.21.11+ and modern Paper-family servers.
 website: https://github.com/wickidcow/SF_BetterFarming
 main: me.hal989.betterfarming.BetterFarming
 depend: [Slimefun]
