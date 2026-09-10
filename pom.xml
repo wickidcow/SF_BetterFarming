@@ -5,6 +5,21 @@
     <groupId>io.github.wickidcow</groupId>
     <artifactId>SF_BetterFarming</artifactId>
     <version>1.0.0</version>
+    <name>SF_BetterFarming</name>
+    <description>Maintained BetterFarming addon for Slimefun Legacy on modern Paper servers.</description>
+    <url>https://github.com/wickidcow/SF_BetterFarming</url>
+    <licenses>
+        <license>
+            <name>GNU General Public License v3.0 - maintained distribution</name>
+            <url>https://github.com/wickidcow/Slimefun-Legacy/blob/master/LICENSE</url>
+            <distribution>repo</distribution>
+        </license>
+        <license>
+            <name>MIT License - upstream BetterFarming portions</name>
+            <url>https://github.com/wickidcow/SF_BetterFarming/blob/main/LICENSE</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
 
     <properties>
         <maven.compiler.release>21</maven.compiler.release>
