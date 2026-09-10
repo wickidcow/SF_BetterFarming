@@ -7,8 +7,6 @@ import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.core.attributes.NotPlaceable;
 import org.bukkit.inventory.ItemStack;
 
-import javax.annotation.Nullable;
-
 public class NotPlaceableItem extends SlimefunItem implements NotPlaceable {
     public NotPlaceableItem(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
         super(itemGroup, item, recipeType, recipe);
@@ -18,7 +16,7 @@ public class NotPlaceableItem extends SlimefunItem implements NotPlaceable {
         super(itemGroup, item, id, recipeType, recipe);
     }
 
-    public NotPlaceableItem(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe, @Nullable ItemStack recipeOutput) {
+    public NotPlaceableItem(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe, ItemStack recipeOutput) {
         super(itemGroup, item, recipeType, recipe, recipeOutput);
     }
 }
