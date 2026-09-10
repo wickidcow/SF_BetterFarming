@@ -2,6 +2,7 @@ package me.hal989.betterfarming;
 
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import org.bukkit.Material;
+import org.bukkit.Tag;
 import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -9,7 +10,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.plugin.Plugin;
 
 import java.util.Collections;
 import java.util.EnumSet;
@@ -20,19 +20,16 @@ import static me.hal989.betterfarming.BetterFarming.*;
 
 public class BlockBreakHandler implements Listener {
 
-    private static final Set<Material> LEAVES = materials(
-        "OAK_LEAVES", "DARK_OAK_LEAVES", "SPRUCE_LEAVES", "BIRCH_LEAVES",
-        "ACACIA_LEAVES", "JUNGLE_LEAVES", "MANGROVE_LEAVES", "CHERRY_LEAVES",
-        "AZALEA_LEAVES", "FLOWERING_AZALEA_LEAVES", "PALE_OAK_LEAVES"
-    );
-
     private static final Set<Material> SEARCHABLE_VEGETATION = materials(
-        "SHORT_GRASS", "TALL_GRASS",
-        "SHORT_DRY_GRASS", "TALL_DRY_GRASS",
+        "SHORT_GRASS", "TALL_GRASS", "SHORT_DRY_GRASS", "TALL_DRY_GRASS",
         "BUSH", "FIREFLY_BUSH", "WILDFLOWERS", "CACTUS_FLOWER", "LEAF_LITTER"
     );
 
-    public BlockBreakHandler(Plugin plugin) {
+    private final BetterFarming plugin;
+
+    public BlockBreakHandler(BetterFarming plugin) {
+        this.plugin = plugin;
+        plugin.saveDefaultConfig();
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
     }
 
@@ -49,12 +46,12 @@ public class BlockBreakHandler implements Listener {
         ThreadLocalRandom random = ThreadLocalRandom.current();
         String id = hand.getId();
 
-        if (LEAVES.contains(material)) {
-            if (id.equals(appleHoe.getItemId()) && random.nextDouble() < 0.30) {
+        if (Tag.LEAVES.isTagged(material)) {
+            if (id.equals(appleHoe.getItemId()) && roll(random, "drops.apple-hoe", 30.0)) {
                 drop(block, new ItemStack(Material.APPLE));
-            } else if (id.equals(goldenAppleHoe.getItemId()) && random.nextDouble() < 0.10) {
+            } else if (id.equals(goldenAppleHoe.getItemId()) && roll(random, "drops.golden-apple-hoe", 10.0)) {
                 drop(block, new ItemStack(Material.GOLDEN_APPLE));
-            } else if (id.equals(enchGoldenAppleHoe.getItemId()) && random.nextDouble() < 0.05) {
+            } else if (id.equals(enchGoldenAppleHoe.getItemId()) && roll(random, "drops.enchanted-golden-apple-hoe", 5.0)) {
                 drop(block, new ItemStack(Material.ENCHANTED_GOLDEN_APPLE));
             }
             return;
@@ -64,13 +61,13 @@ public class BlockBreakHandler implements Listener {
             return;
         }
 
-        if (id.equals(kokiriSword.getItemId()) && random.nextDouble() > 0.50) {
+        if (id.equals(kokiriSword.getItemId()) && roll(random, "drops.kokiri-sword", 50.0)) {
             player.getInventory().addItem((random.nextDouble() < 0.90 ? greenRupee : blueRupee).clone());
-        } else if (id.equals(copperRupeeSword.getItemId()) && random.nextDouble() > 0.45) {
+        } else if (id.equals(copperRupeeSword.getItemId()) && roll(random, "drops.copper-rupee-sword", 55.0)) {
             drop(block, (random.nextDouble() < 0.80 ? greenRupee : blueRupee).clone());
-        } else if (id.equals(copperRupeeSpear.getItemId()) && random.nextDouble() > 0.40) {
+        } else if (id.equals(copperRupeeSpear.getItemId()) && roll(random, "drops.copper-rupee-spear", 60.0)) {
             drop(block, (random.nextDouble() < 0.85 ? blueRupee : redRupee).clone());
-        } else if (id.equals(magicalSword.getItemId()) && random.nextDouble() > 0.30) {
+        } else if (id.equals(magicalSword.getItemId()) && roll(random, "drops.magical-sword", 70.0)) {
             drop(block, (random.nextDouble() < 0.90 ? blueRupee : redRupee).clone());
         } else if (id.equals(masterSword.getItemId())) {
             AttributeInstance maxHealthAttribute = player.getAttribute(org.bukkit.attribute.Attribute.MAX_HEALTH);
@@ -82,6 +79,11 @@ public class BlockBreakHandler implements Listener {
                 drop(block, redRupee.clone());
             }
         }
+    }
+
+    private boolean roll(ThreadLocalRandom random, String path, double defaultPercent) {
+        double percent = Math.max(0.0, Math.min(100.0, plugin.getConfig().getDouble(path, defaultPercent)));
+        return random.nextDouble(100.0) < percent;
     }
 
     private static Set<Material> materials(String... names) {

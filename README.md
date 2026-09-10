@@ -1,76 +1,41 @@
 <div align="center">
 
 # SF_BetterFarming — Slimefun Legacy
-### Maintained BetterFarming progression for modern Paper servers
-
-BetterFarming adds special hoes, Rupees, breakable pots, and grass-based rewards while preserving the recovered original progression.
+### Classic BetterFarming preserved for modern Minecraft
 
 [![Build](https://github.com/wickidcow/SF_BetterFarming/actions/workflows/maven.yml/badge.svg)](https://github.com/wickidcow/SF_BetterFarming/actions/workflows/maven.yml)
-[![Slimefun Legacy](https://img.shields.io/badge/Slimefun-Legacy-6bd425)](https://github.com/wickidcow/Slimefun-Legacy)
-[![Paper](https://img.shields.io/badge/Server-Paper%2026.2-blue)](https://papermc.io/)
-[![Java](https://img.shields.io/badge/Build-Java%2025-orange)](https://adoptium.net/)
 [![License](https://img.shields.io/badge/Maintained%20distribution-GPLv3-blue)](https://github.com/wickidcow/Slimefun-Legacy/blob/master/LICENSE)
-
-[Releases](https://github.com/wickidcow/SF_BetterFarming/releases) · [Builds](https://github.com/wickidcow/SF_BetterFarming/actions) · [Issues](https://github.com/wickidcow/SF_BetterFarming/issues)
 
 </div>
 
 > [!IMPORTANT]
-> **SF_BetterFarming is an unofficial, independently maintained downstream fork of BetterFarming.** It is maintained by `wickidcow` for [AlbionMC.com](https://albionmc.com) and the wider Slimefun community. It is not an official release of the original BetterFarming project, the original Slimefun project, Slimefun United, or the SlimefunGuguProject.
+> **SF_BetterFarming is an unofficial, independently maintained downstream fork.** It is maintained by `wickidcow` for AlbionMC and the wider Slimefun community.
 >
 > **NOT AN OFFICIAL MINECRAFT PRODUCT. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT.**
 
----
-## What is SF_BetterFarming?
+## Preserved progression
 
-BetterFarming adds special farming tools, Rupees, breakable pots, and sword-based grass rewards. This maintained line restores a fully English-facing build from the recovered `d8b712f` source lineage and updates it for current Minecraft, Paper, and Slimefun APIs.
+The Apple Hoes, Rupees, Breakable Pot, Kokiri Sword, Magical Sword and Master Sword retain their established item IDs, recipes and gameplay role. The modern Copper Rupee Sword and Copper Rupee Spear remain additive items rather than replacements.
 
-The gameplay is event-driven and does not create its own repeating scheduler. Modern leaf types including mangrove, cherry, azalea and pale oak leaves are recognized, and current `SHORT_GRASS` naming is used.
+## 1.0.2 modernization
 
----
-## Download and build
+- Leaf handling now uses Minecraft's/Bukkit's `Tag.LEAVES` instead of a fixed list, so future vanilla tree families naturally participate without rewriting the classic Apple Hoe mechanic.
+- Modern vegetation support remains for Dry Grass, Bush, Firefly Bush, Wildflowers, Cactus Flower and Leaf Litter.
+- Apple Hoe, Golden Apple Hoe, Enchanted Golden Apple Hoe, Kokiri Sword, Copper Rupee Sword, Copper Rupee Spear and Magical Sword drop chances are configurable in `config.yml`.
+- Shipped defaults are identical to 1.0.1 behavior. The Master Sword keeps its original full-health/fallback logic unchanged.
 
-Release JARs use the maintained Slimefun-addon naming convention:
+Release JAR: `SF_BetterFarming1.0.2.jar`
 
-`SF_BetterFarming1.0.0.jar`
+Built with Java 25 targeting Java 21 bytecode. Slimefun Legacy is the primary target; shared API compatibility is retained for Slimefun United, SlimefunGuguProject/Slimefun4 and original Slimefun4-compatible implementations. Paper is primary with Purpur, Folia and Leaf as compatibility targets.
 
-The project builds with **Java 25** while targeting **Java 21 bytecode**. The production compatibility baseline is **Slimefun Legacy 4.1.48 on Paper 26.2**. Development builds are available from GitHub Actions and versioned release JARs are published on the Releases page.
+No direct GuizhanLib dependency is used.
 
----
-## Compatibility
+## Credits and license
 
-Primary target: **Slimefun Legacy**.
+Original BetterFarming authorship and its MIT notice remain preserved for upstream-derived material. The maintained `wickidcow` distribution and later modifications are distributed under the [GNU General Public License v3.0](https://github.com/wickidcow/Slimefun-Legacy/blob/master/LICENSE).
 
-Compatibility is also validated against Slimefun United, SlimefunGuguProject/Slimefun4, and original Slimefun4-compatible APIs. Paper is the primary server family; Purpur, Folia and Leaf are compatibility targets.
-
-This maintained fork has no direct CS-CoreLib dependency and avoids external Slimefun utility-library dependencies. Cross-fork support stays on the shared Slimefun addon API wherever practical.
-
----
-## English-first maintenance
-
-The inherited translation fork contained non-English category, item, lore and research text. The maintained `wickidcow` line replaces those strings with English and keeps player-facing source/resources English-first.
-
----
-## Credits and project lineage
-
-Original BetterFarming project authorship belongs to **Gavin296, HAL989, and the original contributors**. Modern compatibility, English maintenance, and Slimefun Legacy integration are maintained by **wickidcow**.
-
-This fork exists to preserve and maintain that work for current servers—not to replace the original developers or claim their work as its own. Upstream authorship, copyright notices, and applicable license obligations remain respected.
-
----
-## Independence, trademarks and non-affiliation
+## Independence and trademarks
 
 **NOT AN OFFICIAL MINECRAFT PRODUCT. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT.**
 
-SF_BetterFarming and this maintenance fork are independent community projects. They are not affiliated with, endorsed by, sponsored by, approved by, or operated by Mojang Studios or Microsoft Corporation. References to Minecraft, Slimefun, Paper, upstream projects, companies, products, or communities are for identification, compatibility, attribution, and interoperability only.
-
-Minecraft, Mojang Studios, Microsoft, and other third-party names, logos, brands, and trademarks remain the property of their respective owners. No sponsorship, partnership, ownership, or endorsement is claimed or implied.
-
----
-## License
-
-The maintained `wickidcow` distribution and its modifications are distributed under the [GNU General Public License v3.0](https://github.com/wickidcow/Slimefun-Legacy/blob/master/LICENSE).
-
-Original BetterFarming source was made available under the MIT License. The original Gavin296 copyright and MIT permission notice remain preserved in this repository and continue to apply to upstream-derived material; the maintained GPLv3 distribution does not erase or claim ownership of that upstream authorship.
-
-Copyright in later modifications remains with the contributors who authored those changes.
+This project is independent and is not affiliated with, endorsed by, sponsored by, approved by, or operated by Mojang Studios or Microsoft Corporation. Third-party names and trademarks remain the property of their respective owners.

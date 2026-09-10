@@ -1,2 +1,12 @@
-options:
-  auto-update: true
+# BetterFarming drop chances, in percent.
+# Defaults preserve the maintained 1.0.1 behavior.
+drops:
+  apple-hoe: 30.0
+  golden-apple-hoe: 10.0
+  enchanted-golden-apple-hoe: 5.0
+  kokiri-sword: 50.0
+  copper-rupee-sword: 55.0
+  copper-rupee-spear: 60.0
+  magical-sword: 70.0
+
+# Master Sword keeps its original full-health/fallback behavior to preserve progression.
