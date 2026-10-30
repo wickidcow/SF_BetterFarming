@@ -65,9 +65,9 @@ class StablePaperCompilePolicyTest(unittest.TestCase):
             verify(before + '-Dpaper.version="[26.3.build,26.4.build)"' + after)
 
     def test_build_cannot_be_replaced_by_noop(self):
-        original = 'mvn -B -Dmaven.test.skip=true clean package\\n          -Dpaper.version="[26.3.build,26.4.build)"'
+        original = 'mvn -B -Dmaven.test.skip=true clean package\n          -Dpaper.version="[26.3.build,26.4.build)"'
         self.mutation(original,
-                      'echo 26.3 compatibility passed\\n          -Dpaper.version="[26.3.build,26.4.build)"')
+                      'echo 26.3 compatibility passed\n          -Dpaper.version="[26.3.build,26.4.build)"')
 
     def test_policy_cannot_be_skipped(self):
         self.mutation("test_stable_paper_compile_policy.py' -v",
