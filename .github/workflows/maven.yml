@@ -28,6 +28,8 @@ jobs:
       - uses: actions/checkout@v6
       - name: Verify immutable publication policy
         run: python3 -m unittest discover -s scripts -p 'test_immutable_release_policy.py' -v
+      - name: Verify stable Paper 26.3 compilation policy
+        run: python3 -m unittest discover -s scripts -p 'test_stable_paper_compile_policy.py' -v
       - uses: actions/setup-java@v5
         with:
           distribution: temurin
@@ -66,10 +68,10 @@ jobs:
           -Dslimefun.groupId=com.github.slimefun
           -Dslimefun.artifactId=Slimefun
           -Dslimefun.version="${SLIMEFUN_LEGACY_VERSION}"
-      - name: Verify Paper 26.3 alpha compatibility
+      - name: Verify stable Paper 26.3 API source compatibility
         run: >-
           mvn -B -Dmaven.test.skip=true clean package
-          -Dpaper.version=26.3-rc-3.build.1-alpha
+          -Dpaper.version="[26.3.build,26.4.build)"
           -Dslimefun.groupId=com.github.slimefun
           -Dslimefun.artifactId=Slimefun
           -Dslimefun.version="${SLIMEFUN_LEGACY_VERSION}"
