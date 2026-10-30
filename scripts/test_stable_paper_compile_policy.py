@@ -58,12 +58,16 @@ class StablePaperCompilePolicyTest(unittest.TestCase):
                       '-Dpaper.version="[26.4.build,26.5.build)"')
 
     def test_universal_baseline_is_not_raised(self):
-        self.mutation('-Dpaper.version=1.21.11-R0.1-SNAPSHOT',
-                      '-Dpaper.version="[26.3.build,26.4.build)"')
+        original = '-Dpaper.version=1.21.11-R0.1-SNAPSHOT'
+        self.assertEqual(2, self.workflow.count(original))
+        before, after = self.workflow.rsplit(original, 1)
+        with self.assertRaises(ValueError):
+            verify(before + '-Dpaper.version="[26.3.build,26.4.build)"' + after)
 
     def test_build_cannot_be_replaced_by_noop(self):
-        self.mutation("mvn -B -Dmaven.test.skip=true clean package",
-                      "echo 26.3 compatibility passed")
+        original = 'mvn -B -Dmaven.test.skip=true clean package\\n          -Dpaper.version="[26.3.build,26.4.build)"'
+        self.mutation(original,
+                      'echo 26.3 compatibility passed\\n          -Dpaper.version="[26.3.build,26.4.build)"')
 
     def test_policy_cannot_be_skipped(self):
         self.mutation("test_stable_paper_compile_policy.py' -v",
